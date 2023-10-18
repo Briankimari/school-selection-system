@@ -168,7 +168,7 @@ const {currentColor} = useStateContext();
       <p className='text-orange-400 text-center'>Your Grade matches the University or Collage given below by the system</p>
     
       <form onSubmit={saveGrade}>
-        <div className='bg-white p-10 shadow-xl'>
+        <div className='bg-white md:p-10 p-5 shadow-xl'>
             <i>fill the form above for accuracy during school selection</i>
           <div className='mt-4'>
       <h1 className='font-bold'>University Recommendation Tool</h1>
@@ -192,7 +192,7 @@ const {currentColor} = useStateContext();
       </div>
       {grade && (
         <div className='text-center mt-6'>
-          <p className='text-gray-800'>Recommended University:<span className='font-bold text-2xl ml-4 text-black'>{university}</span></p>
+          <p className='text-gray-800'>Recommended University/Collage:<span className='font-bold flex flex-wrap justify-center items-center md:text-2xl ml-4 text-black'>{university}</span></p>
         </div>
       )}
     </div>
@@ -221,15 +221,22 @@ const {currentColor} = useStateContext();
     <div className='text-center pb-8'>
       <button className=' cursor-auto p-2 rounded-3xl w-72  dark:bg-white  uppercase text-orange-400 bg-black drop-shadow-xl'> Yearly Graph</button>
     </div>
-    <div className='bg-white   dark:bg-gray-800 dark:text-white  xl:flex block justify-around h-96 md:p-2 p-0 rounded-lg shadow-lg '>
+    <div className='bg-white   dark:bg-gray-800 dark:text-white  xl:flex block justify-around md:h-96 h-ful md:p-2 p-0 rounded-lg shadow-lg '>
+  <div >
       <LineChart/>
-     <div>
+   
+       </div> 
+         <div className='mt-6'>
       
       <PieChart data={data} labels={labels} />
 
      </div>
-       </div> 
-        <div className='xl:mt-10 mt-10 bg-white md:p-2 text-center  p-6'>
+    </div>
+  
+      
+  </div>    
+       
+       <div className='xl:mt-10 mt-20 bg-white md:p-2 text-center  p-6'>
         <h3 className='font-bold'>2023 Top 10 Highly Ranked School</h3>
         <div style={{borderColor:currentColor}} className='border-1 border-b-4 border-t-4 mt-4 p-8 rounded-lg'>
         <ol className='grid md:grid-cols-2 grid-cols-1 ' style={{color:currentColor,textDecoration:'underline'}}>
@@ -243,9 +250,6 @@ const {currentColor} = useStateContext();
          </ol>
         </div>
       </div>
-  </div>    
-       
-     
 
       
     </div>
