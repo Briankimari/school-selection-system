@@ -1,57 +1,29 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import { alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import { visuallyHidden } from '@mui/utils';
-import axios from 'axios';
-import { DeleteForever } from '@mui/icons-material';
-import { toast } from 'react-toastify'
-
-function createData(fullNames, calories, bmi, age, weight) {
-  return {
-    fullNames,
-    calories,
-    bmi,
-  
-    weight,
-    age,
-   
-  };
-}
-
-const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
-];
+import * as React from "react";
+import PropTypes from "prop-types";
+import { alpha } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Checkbox from "@mui/material/Checkbox";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import DeleteIcon from "@mui/icons-material/Delete";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import { visuallyHidden } from "@mui/utils";
+import axios from "axios";
+import { DeleteForever } from "@mui/icons-material";
+import { toast } from "react-toastify";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -64,11 +36,10 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-  return order === 'desc'
+  return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
-
 
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
@@ -84,50 +55,51 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'name',
+    id: "name",
     numeric: false,
     disablePadding: true,
-    label: 'Full Names',
+    label: "Full Names",
   },
   {
-    id: 'calories',
+    id: "grade",
     numeric: true,
     disablePadding: false,
-    label: 'Grade',
+    label: "Grade",
   },
   {
-    id: 'bmi',
+    id: "indexNumber",
     numeric: true,
     disablePadding: false,
-    label: 'Index Number',
+    label: "Index Number",
   },
-
   {
-    id: 'age',
+    id: "school",
     numeric: true,
     disablePadding: false,
-    label: 'subjects ',
+    label: "Subjects",
   },
-    {
-    id: 'wight',
+  {
+    id: "year",
     numeric: true,
     disablePadding: false,
-    label: 'year ',
+    label: "Year",
   },
-  
 ];
 
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-    props;
+  const {
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
+  } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
 
   return (
-    
- 
-
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
@@ -137,26 +109,26 @@ function EnhancedTableHead(props) {
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
-              'aria-label': 'select all desserts',
+              "aria-label": "select all students",
             }}
           />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            align={headCell.numeric ? "right" : "left"}
+            padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
+              direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </Box>
               ) : null}
             </TableSortLabel>
@@ -171,7 +143,7 @@ EnhancedTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
@@ -186,13 +158,16 @@ function EnhancedTableToolbar(props) {
         pr: { xs: 1, sm: 1 },
         ...(numSelected > 0 && {
           bgcolor: (theme) =>
-            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+            alpha(
+              theme.palette.primary.main,
+              theme.palette.action.activatedOpacity
+            ),
         }),
       }}
     >
       {numSelected > 0 ? (
         <Typography
-          sx={{ flex: '1 1 100%' }}
+          sx={{ flex: "1 1 100%" }}
           color="inherit"
           variant="subtitle1"
           component="div"
@@ -201,20 +176,17 @@ function EnhancedTableToolbar(props) {
         </Typography>
       ) : (
         <Typography
-          sx={{ flex: '1 1 100%' }}
+          sx={{ flex: "1 1 100%" }}
           variant="h6"
           id="tableTitle"
           component="div"
         >
-          Grade System Database,   <p className='text-sm text-orange-300  text-center p-2'>after delete refresh your page....</p>
+          Grade System Database
         </Typography>
-        
       )}
-    
-
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton >
+          <IconButton>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -234,66 +206,62 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function Database() {
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("grade");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [bmiData,setBmiData]= React.useState([]);
-   const [calorieData,setCalorieData]= React.useState([]);
- 
+  const [bmiData, setBmiData] = React.useState([]);
+  const [isDeleting, setIsDeleting] = React.useState(null); // Track deleting ID
 
-
- React.useEffect(() => {
-    // Fetch BMI data from the backend
-    axios.get('https://fastfood-api-bz41.onrender.com/get-student')
-      .then((response) => {
-      
-        setBmiData(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching student data:', error);
-      });
-
-    // Fetch calorie data from the backend
-    axios.get('https://fastfood-api-bz41.onrender.com/get-grade')
-      .then((response) => {
-        
-        setCalorieData(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching student grade:', error);
-      });
+  React.useEffect(() => {
+    fetchStudents();
   }, []);
 
-
-    const handleDelete = (event, id) => {
-    // Send a request to delete the item from the backend
-    axios.delete(`https://fastfood-api-bz41.onrender.com/delete-student/${id}`)
-      .then((response) => {
-        // Assuming the delete request was successful
-        // Remove the deleted item from the state
-        toast.success('Data deleted successfully')
-        setBmiData((prevData) => prevData.filter((item) => item.fullName !== id));
-      })
-      .catch((error) => {
-        toast.error('Error deleting Data, try later')
-        console.error('Error deleting BMI data:', error);
-      });
+  const fetchStudents = async () => {
+    try {
+      const response = await axios.get(
+        "https://fastfood-api-bz41.onrender.com/get-student",
+        {
+          timeout: 10000,
+        }
+      );
+      setBmiData(response.data);
+    } catch (error) {
+      toast.error("Error fetching student data.");
+      console.error("Error fetching student data:", error);
+    }
   };
-  
 
+  const handleDelete = async (id) => {
+    setIsDeleting(id);
+    try {
+      await axios.delete(
+        `https://fastfood-api-bz41.onrender.com/delete-student/${id}`,
+        {
+          timeout: 10000,
+        }
+      );
+      toast.success("Data deleted successfully");
+      await fetchStudents(); // Refetch to update UI
+    } catch (error) {
+      toast.error("Error deleting data, try later");
+      console.error("Error deleting data:", error);
+    } finally {
+      setIsDeleting(null);
+    }
+  };
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.name);
+      const newSelected = bmiData.map((n) => n.firstName);
       setSelected(newSelected);
       return;
     }
@@ -313,7 +281,7 @@ export default function Database() {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
 
@@ -335,117 +303,118 @@ export default function Database() {
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
   const visibleRows = React.useMemo(
     () =>
-      stableSort(rows, getComparator(order, orderBy)).slice(
+      stableSort(bmiData, getComparator(order, orderBy)).slice(
         page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
+        page * rowsPerPage + rowsPerPage
       ),
-    [order, orderBy, page, rowsPerPage],
+    [order, orderBy, page, rowsPerPage, bmiData]
   );
- 
-  return (
-    <div className='md:p-16  p-2 mt-20 dark:bg-secondary-dark-bg dark:shadow-2xl dark:text-white'>
-        <div className='p-6 text-2xl font-bold text-center'>
-            <h3>DataBase</h3>
-        </div>
-          <Box sx={{ width: '100%' }} >
-      <Paper className='dark:bg-gray-400 dark:p-6 dark:shadow-xl dark:text-white' sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {bmiData.map((row, index) => {
-                const isItemSelected = isSelected(row.firstName);
-                const labelId = `enhanced-table-checkbox-${index}`;
 
-                return (
-                  <TableRow
-                    hover
-                    onClick={(event) => handleClick(event, row.firstName)}
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={row.firstName}
-                    selected={isItemSelected}
-                    sx={{ cursor: 'pointer' }}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        color="primary"
-                        checked={isItemSelected}
-                        inputProps={{
-                          'aria-labelledby': labelId,
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell
-                      component="th"
-                      id={labelId}
-                      scope="row"
-                      padding="none"
+  return (
+    <div className="md:p-16 p-2 mt-20 dark:bg-secondary-dark-bg dark:shadow-2xl dark:text-white">
+      <div className="p-6 text-2xl font-bold text-center">
+        <h3>Database</h3>
+      </div>
+      <Box sx={{ width: "100%" }}>
+        <Paper
+          className="dark:bg-gray-400 dark:p-6 dark:shadow-xl dark:text-white"
+          sx={{ width: "100%", mb: 2 }}
+        >
+          <EnhancedTableToolbar numSelected={selected.length} />
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size={dense ? "small" : "medium"}
+            >
+              <EnhancedTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={bmiData.length}
+              />
+              <TableBody>
+                {visibleRows.map((row, index) => {
+                  const isItemSelected = isSelected(row.firstName);
+                  const labelId = `enhanced-table-checkbox-${index}`;
+
+                  return (
+                    <TableRow
+                      hover
+                      onClick={(event) => handleClick(event, row.firstName)}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={row._id}
+                      selected={isItemSelected}
+                      sx={{ cursor: "pointer" }}
                     >
-                      {row.firstName} {row.surName}
-                    </TableCell>
-                    <TableCell align="right">{row.grade}</TableCell>
-                    <TableCell align="right">{row.indexNumber}</TableCell>
-                    <TableCell align="right">{row.school}</TableCell>
-                    <TableCell align="right">{row.year}</TableCell>
-                    
-                    <TableCell align='right'>
-                      <IconButton aria-label='delete' onClick={()=> handleDelete(event,row._id)}>
-                          <DeleteForever/>
-                      </IconButton>
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          color="primary"
+                          checked={isItemSelected}
+                          inputProps={{
+                            "aria-labelledby": labelId,
+                          }}
+                        />
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
+                      >
+                        {row.firstName} {row.surName}
+                      </TableCell>
+                      <TableCell align="right">{row.grade}</TableCell>
+                      <TableCell align="right">{row.indexNumber}</TableCell>
+                      <TableCell align="right">{row.school}</TableCell>
+                      <TableCell align="right">{row.year}</TableCell>
+                      <TableCell align="right">
+                        <IconButton
+                          aria-label="delete"
+                          onClick={() => handleDelete(row._id)}
+                          disabled={isDeleting === row._id}
+                        >
+                          <DeleteForever
+                            color={
+                              isDeleting === row._id ? "disabled" : "error"
+                            }
+                          />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+                {bmiData.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={7} align="center">
+                      No data available
                     </TableCell>
                   </TableRow>
-                );
-              })}
-               
-              
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={bmiData.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+        <FormControlLabel
+          control={<Switch checked={dense} onChange={handleChangeDense} />}
+          label="Dense padding"
         />
-      </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
-    
-    </Box>
+      </Box>
     </div>
-  
   );
 }
