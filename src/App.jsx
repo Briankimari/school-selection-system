@@ -1,24 +1,30 @@
-import React, { useEffect } from 'react';
-import { FiSettings } from 'react-icons/fi';
-import { ToastContainer } from 'react-toastify';
+import React, { useEffect } from "react";
+import { FiSettings } from "react-icons/fi";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Navbar, Footer, Sidebar, ThemeSettings, Pie } from './components';
-import { Ecommerce, Orders} from './pages';
-import './App.css';
-import { useStateContext } from './contexts/ContextProvider';
-import Grading from './pages/Grading';
-import Students from './pages/Students';
-import Database from './pages/Database';
-import { Route, Routes } from 'react-router-dom';
-
-
+import { Navbar, Footer, Sidebar, ThemeSettings, Pie } from "./components";
+import { Ecommerce, Orders } from "./pages";
+import "./App.css";
+import { useStateContext } from "./contexts/ContextProvider";
+import Grading from "./pages/Grading";
+import Students from "./pages/Students";
+import Database from "./pages/Database";
+import { Route, Routes } from "react-router-dom";
 
 const App = () => {
-  const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
+  const {
+    setCurrentColor,
+    setCurrentMode,
+    currentMode,
+    activeMenu,
+    currentColor,
+    themeSettings,
+    setThemeSettings,
+  } = useStateContext();
 
   useEffect(() => {
-    const currentThemeColor = localStorage.getItem('colorMode');
-    const currentThemeMode = localStorage.getItem('themeMode');
+    const currentThemeColor = localStorage.getItem("colorMode");
+    const currentThemeMode = localStorage.getItem("themeMode");
     if (currentThemeColor && currentThemeMode) {
       setCurrentColor(currentThemeColor);
       setCurrentMode(currentThemeMode);
@@ -26,67 +32,65 @@ const App = () => {
   }, []);
 
   return (
-    <div className={currentMode === 'Dark' ? 'dark' : ''}>
-      <ToastContainer/>
-        <div className="flex relative dark:bg-main-dark-bg">
-          <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
-            <div >
-              <button
-                type="button"
-                onClick={() => setThemeSettings(true)}
-                style={{ background: currentColor, borderRadius: '50%' }}
-                className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
-              >
-                <FiSettings />
-              </button>
-
-            </div>
-          </div>
-          {activeMenu ? (
-            <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
-              <Sidebar />
-            </div>
-          ) : (
-            <div className="w-0 dark:bg-secondary-dark-bg">
-              <Sidebar />
-            </div>
-          )}
-          <div
-            className={
-              activeMenu
-                ? 'dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full  '
-                : 'bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 '
-            }
+    <div className={currentMode === "Dark" ? "dark" : ""}>
+      <ToastContainer />
+      <div className="flex flex-col min-h-screen dark:bg-main-dark-bg">
+        {/* Settings Button */}
+        <div className="fixed right-4 bottom-4 z-50">
+          <button
+            type="button"
+            onClick={() => setThemeSettings(true)}
+            style={{ background: currentColor, borderRadius: "50%" }}
+            className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
           >
-            <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
-              <Navbar />
-            </div>
-            <div>
-              {themeSettings && (<ThemeSettings />)}
+            <FiSettings />
+          </button>
+        </div>
 
-              <Routes>
-                {/* dashboard  */}
-                <Route path="/" element={(<Ecommerce />)} />
-                <Route path="/homepage" element={(<Ecommerce />)} />
+        {/* Sidebar */}
+        {activeMenu ? (
+          <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
+            <Sidebar />
+          </div>
+        ) : (
+          <div className="w-0 dark:bg-secondary-dark-bg">
+            <Sidebar />
+          </div>
+        )}
 
-                {/* pages  */}
-               <Route path="/orders" element={<Orders />} />
-               <Route path="/grading" element={<Grading />} /> 
-               <Route path="/profile" element={<Students />} />
-               <Route path="/database" element={<Database />} />
-                   
+        {/* Main Content */}
+        <div
+          className={
+            activeMenu
+              ? "dark:bg-main-dark-bg bg-main-bg min-h-screen md:ml-72 w-full flex flex-col"
+              : "bg-main-bg dark:bg-main-dark-bg w-full min-h-screen flex flex-col"
+          }
+        >
+          {/* Navbar */}
+          <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
+            <Navbar />
+          </div>
 
-                {/* charts  */}
-                
-                <Route path="/graph" element={<Pie />} />
-                
+          {/* Content */}
+          <div className="flex-grow p-4 pb-20">
+            {themeSettings && <ThemeSettings />}
+            <Routes>
+              <Route path="/" element={<Ecommerce />} />
+              <Route path="/homepage" element={<Ecommerce />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/grading" element={<Grading />} />
+              <Route path="/profile" element={<Students />} />
+              <Route path="/database" element={<Database />} />
+              <Route path="/graph" element={<Pie />} />
+            </Routes>
+          </div>
 
-              </Routes>
-            </div>
+          {/* Footer */}
+          <div className="mt-auto">
             <Footer />
           </div>
         </div>
-
+      </div>
     </div>
   );
 };
